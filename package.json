@@ -1,6 +1,6 @@
 {
   "name": "simple-tmi-emotes",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Bring back emotes in chat messages coming from TMI.js (Twitch)",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
