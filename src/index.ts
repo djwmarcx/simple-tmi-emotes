@@ -23,7 +23,7 @@ const idToImage = (id: string, options?: EmoteOptions) => {
  * @param options Options to apply when rendering objects. More information: https://dev.twitch.tv/docs/irc/emotes/
  * @returns Message with emotes as IMG elements
  */
-const parse = (msg: string, emotes: { [x: string]: string[] }, options?: EmoteOptions): string => {
+const parse = (msg: string, emotes: { [x: string | number]: string[] }, options?: EmoteOptions): string => {
   const charVariants: any[] = []
   let intermediateString = msg
   if (!emotes) {
