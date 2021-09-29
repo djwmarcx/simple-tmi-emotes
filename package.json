@@ -7,6 +7,12 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
   },
+  "keywords": [
+    "twitch",
+    "tmi.js",
+    "emotes",
+    "typescript"
+  ],
   "files": [
     "dist/"
   ],
