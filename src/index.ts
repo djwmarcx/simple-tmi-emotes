@@ -28,9 +28,7 @@ const idToImage = (id: string, options?: EmoteOptions) => {
 const parse = (msg: string, emotes: { [x: string | number]: string[] }, options?: EmoteOptions): string => {
   const charIncrements: any[] = []
   let intermediateString = msg
-  if (!emotes) {
-    return msg
-  }
+  
   /* First, we need to scape all HTML characters. We escape each letter individually
      to know positions where characters have been replaced and stores th char increments
   */
@@ -41,6 +39,11 @@ const parse = (msg: string, emotes: { [x: string | number]: string[] }, options?
     }
     return charEscaped
   }).join('')
+
+  // Is there is no emotes, just return the escaped string
+  if (!emotes) {
+    return intermediateString
+  }
 
   // Now, emotes
   Object.keys(emotes)
