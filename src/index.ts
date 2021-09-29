@@ -1,3 +1,5 @@
+import escape from 'lodash.escape'
+
 export interface EmoteOptions {
   format?: 'static' | 'animated' | 'default',
   themeMode: 'light' | 'dark',
@@ -24,11 +26,23 @@ const idToImage = (id: string, options?: EmoteOptions) => {
  * @returns Message with emotes as IMG elements
  */
 const parse = (msg: string, emotes: { [x: string | number]: string[] }, options?: EmoteOptions): string => {
-  const charVariants: any[] = []
+  const charIncrements: any[] = []
   let intermediateString = msg
   if (!emotes) {
     return msg
   }
+  /* First, we need to scape all HTML characters. We escape each letter individually
+     to know positions where characters have been replaced and stores th char increments
+  */
+  intermediateString = intermediateString.split('').map((char, index) => {
+    const charEscaped = escape(char)
+    if (char !== charEscaped) {
+      charIncrements.push([index, char.length - charEscaped.length])
+    }
+    return charEscaped
+  }).join('')
+
+  // Now, emotes
   Object.keys(emotes)
     .forEach(
       id => {
@@ -39,11 +53,11 @@ const parse = (msg: string, emotes: { [x: string | number]: string[] }, options?
         })
 
         ranges.forEach(range => {
-          const charReduction = charVariants.filter(cv => cv[0] < range.end).reduce((sum, cv) => { sum += cv[1]; return sum }, 0)
+          const charReduction = charIncrements.filter(cv => cv[0] < range.end).reduce((sum, cv) => { sum += cv[1]; return sum }, 0)
           const initialLength = intermediateString.length
           intermediateString = intermediateString.substr(0, range.start - charReduction) + idToImage(id, options) + intermediateString.substr(range.end + 1 - charReduction)
           const finalLength = intermediateString.length
-          charVariants.push([range.end, initialLength - finalLength])
+          charIncrements.push([range.end, initialLength - finalLength])
         })
       }
       , {})

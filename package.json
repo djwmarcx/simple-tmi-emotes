@@ -24,6 +24,7 @@
   "author": "Marcos Pérez Ferro",
   "license": "ISC",
   "devDependencies": {
+    "@types/lodash.escape": "^4.0.6",
     "cz-conventional-changelog": "^3.3.0",
     "typescript": "^4.4.3"
   },
@@ -31,5 +32,8 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "dependencies": {
+    "lodash.escape": "^4.0.1"
   }
 }
