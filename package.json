@@ -10,6 +10,7 @@
   "files": [
     "dist/"
   ],
+  "repository": "github:djwmarcx/simple-tmi-emotes",
   "scripts": {
     "prepare": "tsc",
     "commit": "cz"
